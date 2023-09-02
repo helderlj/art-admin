@@ -32,7 +32,6 @@ class ViewEvent extends Component
         $this->eventArticles->load('category');
         $this->eventCategories = $this->eventArticles->pluck('category')->unique('id')->values();
 
-        $this->dispatch( 'show')->to(ArticleModal::class);
     }
 
     public function filterArticles()

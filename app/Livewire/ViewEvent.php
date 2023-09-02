@@ -13,6 +13,10 @@ class ViewEvent extends Component
     public $selectedArticles = [];
     public $focusArticle = null;
 
+    public $name = "";
+    public $email = "";
+    public $uf = "";
+    public $document = "";
     public $categories = [];
     public $selectedCategories = [];
     public $eventCategories = [];
@@ -47,6 +51,11 @@ class ViewEvent extends Component
         }
     }
 
+    public function viewArticle(Article $article)
+    {
+        $this->focusArticle = $article;
+        $this->dispatch('open-modal', name: 'article-modal');
+    }
 
     public function addToCart(int $article)
     {
@@ -61,7 +70,7 @@ class ViewEvent extends Component
 
     public function checkout()
     {
-        dd($this->selectedArticles);
+        dd($this->selectedArticles, $this->name, $this->email, $this->uf, $this->document);
     }
 
 

@@ -1,4 +1,4 @@
-<li class='transform transition duration-500 ease-in-out hover:-translate-y-2 hover:shadow-xl
+<li wire:key="{{ $article->id }}" class='transform transition duration-500 ease-in-out hover:-translate-y-2 hover:shadow-xl
 hover:shadow-purple-200 col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow-md {{ ($selected) ? "shadow-purple-600" : "" }}'>
 
     <div class="flex flex-1 flex-col p-8">
@@ -15,7 +15,7 @@ hover:shadow-purple-200 col-span-1 flex flex-col divide-y divide-gray-200 rounde
     <div>
         <div class="-mt-px flex divide-x divide-gray-200">
             <div class="flex w-0 flex-1">
-                <a wire:click="$dispatch('openModal', '{{ $article->id }}')" href="#"
+                <button wire:click="viewArticle({{ $article->id }})"
                    class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                          stroke="currentColor" class="h-5 w-5 text-gray-400">
@@ -25,18 +25,11 @@ hover:shadow-purple-200 col-span-1 flex flex-col divide-y divide-gray-200 rounde
                     </svg>
 
                     Resumo
-                </a>
+                </button>
             </div>
             <div class="-ml-px flex w-0 flex-1">
-                <a href="#" wire:click="addToCart({{ $article->id }})"
-                   class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-
-                    {{--                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"--}}
-                    {{--                         stroke="currentColor" class="h-5 w-5 text-gray-400">--}}
-                    {{--                        <path stroke-linecap="round" stroke-linejoin="round"--}}
-                    {{--                              d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"/>--}}
-                    {{--                    </svg>--}}
-
+                <button wire:click="addToCart({{ $article->id }})"
+                   class="relative inline-flex w-0 flex-1 items-center justify-start ml-4 gap-x-2 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                          class="h-5 w-5 text-gray-400 @if($selected) text-green-400 @endif">
                         <path fill-rule="evenodd"
@@ -44,10 +37,7 @@ hover:shadow-purple-200 col-span-1 flex flex-col divide-y divide-gray-200 rounde
                               clip-rule="evenodd"/>
                     </svg>
                     {{ ($selected) ? "Selecionado" : "Selecionar" }}
-
-
-
-                </a>
+                </button>
             </div>
         </div>
     </div>

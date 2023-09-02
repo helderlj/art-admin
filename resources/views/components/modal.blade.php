@@ -2,15 +2,16 @@
 <div class="flex justify-center ">
     <div
         x-data="{
-            show: @entangle($attributes->wire('model')).defer
+            show: false
         }"
         x-show="show"
         style="display: none"
-        x-on:keydown.escape.prevent.stop="show = false"
+        x-on:keydown.escape.window="show = false"
+        x-on:close-modal.window="show = false"
+        x-on:open-modal.window="show = true"
         role="dialog"
         aria-modal="true"
-        x-id="['modal-title']"
-        :aria-labelledby="$id('modal-title')"
+
         class="fixed inset-0 z-40 overflow-y-auto">
         <!-- Overlay -->
         <div x-show="show" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-75"></div>

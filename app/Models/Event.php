@@ -51,4 +51,9 @@ class Event extends Model
     {
         return $this->belongsToMany(Article::class)->withPivot('sort');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Email;
 use App\Models\Event;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -61,12 +62,21 @@ class EventFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Event $event) {
-            $email = Email::factory()->create([
+            Email::factory()->create([
                 'subject' => 'Artigos Científicos - Evento: ' . $event->name,
                 'event_id' => $event->id,
             ]);
             $event->categories()->attach(Category::inRandomOrder()->limit(3)->get());
             $event->articles()->attach(Article::inRandomOrder()->limit(10)->get());
+            $event->orders = Order::factory(10)->create([
+                'event_id' => $event->id,
+            ]);
+            foreach ($event->orders as $order) {
+                $order->event_id = $event->id;
+                $order->articles()->attach($event->articles()->inRandomOrder()->take(3)->get(), [
+                    'event_id' => $event->id,
+                ]);
+            }
         });
     }
 }
